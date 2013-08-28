@@ -3,7 +3,7 @@ minivents
 
 Small event system for Javascript.
 
-Minified version is 517 bytes
+Minified version is ~~517~~ 419 bytes
 
 API
 ===
@@ -16,9 +16,12 @@ API
     Lets you stop listening for events, 
     pass in event (`String`) and optionally callback (`Function`)
     
-`trigger`
+`emit`
     Calls all functions listening for that event, 
     pass in an event (`String`)
+    
+`trigger` is no longer supported!!
+`:%s/myobj.trigger(/myobj.emit(/` should do the trick in VIM
     
 Example
 =======
@@ -50,8 +53,8 @@ Example
     sandbox.on("hey", heyTriggered);
     sandbox.on("error", logError, me);
 
-    sandbox.trigger("hey") // alerts "Fabien says Hi", i = 1;
-    sandbox.trigger("error", 23) // logs "Person:: Fabien: Error -- 23"
+    sandbox.emit("hey") // alerts "Fabien says Hi", i = 1;
+    sandbox.emit("error", 23) // logs "Person:: Fabien: Error -- 23"
     
     sandbox.off("hey", sayHi);
     
