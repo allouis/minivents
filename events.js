@@ -27,6 +27,7 @@ function Events() {
           if(func === f) copy.splice(i, 1);
         }
       } 
+      events[type] = copy;
     },
   /**
    * @param {String} type The name of the event to be triggered
