@@ -4,7 +4,7 @@
  */
 function Events() {
   /** @private */
-  var events = {};
+  var events = {}, slice = Array.prototype.slice;
   return {
   /**
    * @param {String} type The name of the event 
