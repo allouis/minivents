@@ -20,7 +20,7 @@ function Events() {
    * @param {Function} [func] The specific callback to be removed from event
    */
     off: function (type, func) {
-      var list = events[type], i, j;
+      var list = events[type], copy = slice.call(events[type]), i, j;
       if(!func) return delete events[type];
       for (i=0, j=list.length; i<j; i++) {
         with(list[i]) {
