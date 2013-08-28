@@ -33,7 +33,7 @@ function Events() {
    * @param {String} type The name of the event to be triggered
    * @param {Array} [args] An array of arguments to pass the the callbacks
    */
-    trigger: function (type, args) {
+    emit: function (type, args) {
       if(!events[type]) return false;
       if(args && !(args instanceof Array)) args = [args];
       var list = events[type], i, j;
