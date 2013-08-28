@@ -24,7 +24,7 @@ function Events() {
       if(!func) return delete events[type];
       for (i=0, j=list.length; i<j; i++) {
         with(list[i]) {
-          if(func === f) delete list[i];
+          if(func === f) copy.splice(i, 1);
         }
       } 
     },
