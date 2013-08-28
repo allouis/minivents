@@ -13,7 +13,7 @@ function Events() {
    */
     on: function (type, func, context) {
       var list = events[type] || (events[type] = []);
-      return !!list.push({f:func, context:context});
+      list.push({f:func, context:context});
     },
   /**
    * @param {String} type The name of the event to be removed 
