@@ -4,9 +4,12 @@
 function Events(){
   var events = {}, i, list, args, A = Array;
   return {
-    on: function (type, func, context) {
-      var list = events[type] || (events[type] = []);
-      list.push({f:func, context:context});
+    /**
+     *  On: listen to events
+     */
+    on: function(type, func, ctx){
+      events[type] || (events[type] = [])
+      events[type].push({f:func, c:ctx})
     },
     off: function (type, func) {
       var list = events[type], copy = slice.call(events[type]), i, j;
