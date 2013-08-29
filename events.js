@@ -1,24 +1,13 @@
 /**
- * Events
- * @constructor Creates event object
+ *  Events
  */
 function Events() {
-  /** @private */
   var events = {}, slice = Array.prototype.slice;
   return {
-  /**
-   * @param {String} type The name of the event 
-   * @param {Function} func Function to call when event is triggered 
-   * @param {Object} context The context of `this` within the function
-   */
     on: function (type, func, context) {
       var list = events[type] || (events[type] = []);
       list.push({f:func, context:context});
     },
-  /**
-   * @param {String} type The name of the event to be removed 
-   * @param {Function} [func] The specific callback to be removed from event
-   */
     off: function (type, func) {
       var list = events[type], copy = slice.call(events[type]), i, j;
       if(!func) return delete events[type];
@@ -29,10 +18,6 @@ function Events() {
       } 
       events[type] = copy;
     },
-  /**
-   * @param {String} type The name of the event to be triggered
-   * @param {Array} [args] An array of arguments to pass the the callbacks
-   */
     emit: function (type, args) {
       if(!events[type]) return false;
       if(args && !(args instanceof Array)) args = [args];
@@ -41,5 +26,5 @@ function Events() {
         list[i].f.apply(list[i].context, args);
       }
     }
-  };
+  }
 }
