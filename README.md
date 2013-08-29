@@ -60,5 +60,9 @@ Example
     
     sandbox.emit("hey") // i = 2;
 
+Credit
+======
+
+Thanks to https://github.com/Zolmeister, whom helped make this even smaller.
     
 
