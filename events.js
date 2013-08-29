@@ -1,8 +1,8 @@
 /**
  *  Events
  */
-function Events() {
-  var events = {}, slice = Array.prototype.slice;
+function Events(){
+  var events = {}, i, list, args, A = Array;
   return {
     on: function (type, func, context) {
       var list = events[type] || (events[type] = []);
