@@ -58,7 +58,7 @@ Example
     
     sandbox.off("hey", sayHi);
     
-    sandbox.trigger("hey") // i = 2;
+    sandbox.emit("hey") // i = 2;
 
     
 
