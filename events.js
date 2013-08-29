@@ -20,13 +20,15 @@ function Events(){
       i = list.length
       while(~--i<0) func == list[i].f && list.splice(i,1)
     },
-    emit: function (type, args) {
-      if(!events[type]) return false;
-      if(args && !(args instanceof Array)) args = [args];
-      var list = events[type], i, j;
-      for(i=0, j=list.length; i<j; i++){
-        list[i].f.apply(list[i].context, args);
-      }
+    /** 
+     * Emit: send event, callbacks will be triggered
+     */
+    emit: function(){
+      args = A.apply([], arguments)
+      list = events[args.shift()] || []
+      args = args[0] instanceof A && args[0] || args
+      i = list.length
+      while(~--i<0) list[i].f.apply(list[i].c, args)
     }
   }
 }
