@@ -3,7 +3,7 @@ minivents
 
 Small event system for Javascript.
 
-Minified version is ~~517~~ 419 bytes
+Minified version is ~~517~~ ~~419~~ 338 bytes
 
 API
 ===
