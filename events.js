@@ -11,15 +11,14 @@ function Events(){
       events[type] || (events[type] = [])
       events[type].push({f:func, c:ctx})
     },
-    off: function (type, func) {
-      var list = events[type], copy = slice.call(events[type]), i, j;
-      if(!func) return delete events[type];
-      for (i=0, j=list.length; i<j; i++) {
-        with(list[i]) {
-          if(func === f) copy.splice(i, 1);
-        }
-      } 
-      events[type] = copy;
+    /**
+     *  Off: stop listening to event / specific callback
+     */
+    off: function(type, func){
+      list = events[type] || []
+      !func && (list.length = 0) 
+      i = list.length
+      while(~--i<0) func == list[i].f && list.splice(i,1)
     },
     emit: function (type, args) {
       if(!events[type]) return false;
