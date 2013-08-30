@@ -45,9 +45,11 @@
 <p><code>:%s/myobj.trigger(/myobj.emit(/</code> should do the trick in VIM</p>
 
 <h1>
-<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h1>
+<a name="examples" class="anchor" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h1>
 
-<pre><code>var sandbox = new Events()
+<p>Basic</p>
+
+<pre><code>var sandbox = new Events
 
 sandbox.on("event", function(){
     // do stuff
@@ -58,6 +60,76 @@ sandbox.emit("event") //does stuff
 sandbox.off("event")
 
 sandbox.emit("event") //does not do stuff
+</code></pre>
+
+<p>Using Context</p>
+
+<pre><code>var sandbox = new Events
+
+var obj = {
+    name: "fabien"
+}
+
+function sayName(){
+    console.log(this.name);
+}
+
+sandbox.on("event", sayName)
+
+sandbox.emit("event") // undefined
+
+//stop listening to original event, we go it wrong
+sandbox.off("event")
+
+//pass in context of 'this'
+sandbox.on("event", sayName, obj)
+
+sandbox.emit("event") // fabien
+</code></pre>
+
+<p>Using Off</p>
+
+<pre><code>var sandbox = new Events
+
+function doStuff(){
+    // do stuff
+}
+
+sandbox.on("event", function(){
+    alert("event happened")
+})
+
+sandbox.on("event", doStuff)
+
+sandbox.emit("event") //event happened &amp;&amp; does stuff
+
+// remove just this callback
+sandbox.off("event", doStuff)
+
+sandbox.emit("event") // event happened 
+
+// re-add listener to show can remove all at once
+sandbox.on("event", doStuff)
+
+// remove all
+sandbox.off("event") 
+
+sandbox.emit("event") // nothing...
+</code></pre>
+
+<p>Passing Parameters</p>
+
+<pre><code>var sandbox = new Events
+
+sandbox.on("event", function(obj, arr, num, bool){
+    console.log(obj.name)
+    console.log(arr)
+    console.log("5 + " + num + " = " + (5+num))
+    if(bool) console.log("It's true!!");
+})
+
+sandbox.emit("event", {name: "fabien"}, [1,2,3], 7, false) 
+// fabien, [1,2,3], 5 + 7 = 12
 </code></pre>
       </section>
     </div>
