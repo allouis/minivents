@@ -10,7 +10,7 @@ About this fork
 
 This fork was meant to address two issues:
 
-1. Object name change from "Events" to "Minivents" to reduce changes of name collisions
+1. Object name change from "Events" to "Minivents" to reduce chances of name collisions
 2. Add ability to mixin events to any object (at the expense of 18 bytes!)
 
 API
