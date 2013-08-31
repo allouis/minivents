@@ -34,6 +34,7 @@ function Events(target){
 
 var assert = require("assert");
 var events = new Events();
+var obj = {};
 var eventsProps = (function(){
     var arr = [];
     for(var prop in events) {
@@ -52,5 +53,13 @@ describe("Events Object Properties", function(){
         assert.equal(eventsProps[i], expected[i])
       }
   });
+});
+
+describe("Mixin should modify original obj, not create new", function(){
+  it("should modify original object", function(){
+    var objRef = obj; 
+    Events(obj);
+    assert.equal(objRef, obj);
+  })  
 });
 
