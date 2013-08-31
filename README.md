@@ -1,68 +1,34 @@
+
 minivents
 =========
 
-Small event system for Javascript.
-
-Minified version is ~~517~~ ~~419~~ 338 bytes
+http://allouis.github.io/minivents/
 
 API
 ===
 
-`on`
-    Lets you listen for events, 
-    pass in event (`String`), callback (`Function`) and optionally context (`Object`)
+`on` : Listen to event. Params { type:`String`, callback:`Function` | context:`Object` }
     
-`off`
-    Lets you stop listening for events, 
-    pass in event (`String`) and optionally callback (`Function`)
+`off` : Stop listening to event. Params { type:`String` | callback:`Function` } 
     
-`emit`
-    Calls all functions listening for that event, 
-    pass in an event (`String`)
-    
+`emit`: Emit event. Params { type:`String` | data:`Object` } 
+
 `trigger` is no longer supported!!
+
 `:%s/myobj.trigger(/myobj.emit(/` should do the trick in VIM
     
 Example
 =======
 
-    var sandbox = new Events()
+    var sandbox = new Events
+    
+    sandbox.on("event", function(){
+        // do stuff
+    })
 
-    var me = {
-      name: "Fabien",
-      type: "Person"
-    }
-    
-    var i = 0;
-    
-    function sayHi(word){
-      var greeting = " says "
-      !!word ? greeting += word : greeting += "Hi";
-      alert(this.name + greeting);
-    }
-    
-    function logError(errorCode){
-        console.log(this.type + ":: " + this.name + ": Error -- " + errorCode);
-    }
-    
-    function heyTriggered(){
-        i++; 
-    }
-  
-    sandbox.on("hey", sayHi, me);
-    sandbox.on("hey", heyTriggered);
-    sandbox.on("error", logError, me);
+    sandbox.emit("event") //does stuff
 
-    sandbox.emit("hey") // alerts "Fabien says Hi", i = 1;
-    sandbox.emit("error", 23) // logs "Person:: Fabien: Error -- 23"
-    
-    sandbox.off("hey", sayHi);
-    
-    sandbox.emit("hey") // i = 2;
+    sandbox.off("event")
 
-Credit
-======
-
-Thanks to https://github.com/Zolmeister, whom helped make this even smaller.
+    sandbox.emit("event") //does not do stuff
     
-
