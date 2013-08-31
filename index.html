@@ -62,6 +62,19 @@ sandbox.off("event")
 sandbox.emit("event") //does not do stuff
 </code></pre>
 
+<p>Mixin </p>
+
+<pre><code>var sandbox = {
+    otherStuff: true
+}
+
+Events(sandbox)
+
+sandbox.on("event", function(){
+    // do stuff
+})
+</code></pre>
+
 <p>Using Context</p>
 
 <pre><code>var sandbox = new Events
