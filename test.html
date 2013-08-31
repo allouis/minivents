@@ -1,0 +1,21 @@
+<script src="minivents.min.js"></script>
+<script>
+    // create a new object
+    var Cool = new Minivents();
+    Cool.on('become', function() {
+        alert("You're cool!");
+    });
+    Cool.emit('become');
+
+    // mixin events
+    var Awesome = {
+        become: function() {
+            this.emit('become');
+        }
+    };
+    Minivents(Awesome);
+    Awesome.on('become', function() {
+       alert("You're awesome!");
+    });
+    Awesome.become();
+</script>
