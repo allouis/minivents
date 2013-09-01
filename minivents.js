@@ -3,7 +3,7 @@
  */
 function Events(target){
   var events = {}, i, list, args, A = Array;
-  target || target = this;  
+  target = target || this
     /**
      *  On: listen to events
      */
