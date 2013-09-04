@@ -16,7 +16,7 @@ function Events(target){
      */
     target.off = function(type, func){
       list = events[type] || []
-      i = func ? list.length : (list.length = 0);
+      i = list.length = func ? list.length : 0
       while(~--i<0) func == list[i].f && list.splice(i,1)
     }
     /** 
