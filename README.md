@@ -19,34 +19,34 @@ API
 Example
 =======
 
-    var sandbox = new Events
+    var sandbox = new Events();
     
     sandbox.on("event", function(){
         // do stuff
-    })
+    });
 
-    sandbox.emit("event") //does stuff
+    sandbox.emit("event"); //does stuff
 
-    sandbox.off("event")
+    sandbox.off("event");
 
-    sandbox.emit("event") //does not do stuff
+    sandbox.emit("event"); //does not do stuff
     
 Mixin Example
 =======
 
     var sandbox = {
         otherStuff: true
-    }
+    };
     
-    Events(sandbox)
+    Events(sandbox);
     
     sandbox.on("event", function(){
         // do stuff
-    })
+    });
 
-    sandbox.emit("event") //does stuff
+    sandbox.emit("event"); //does stuff
 
-    sandbox.off("event")
+    sandbox.off("event");
 
-    sandbox.emit("event") //does not do stuff
+    sandbox.emit("event"); //does not do stuff
     
