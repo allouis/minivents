@@ -25,8 +25,8 @@ function Events(target){
     target.emit = function(){
       args = A.apply([], arguments)
       list = events[args.shift()] || []
-      args = args[0] instanceof A && args[0] || args
       i = list.length
-      while(~--i<0) list[i].f.apply(list[i].c, args)
-    }
+      for(j=0;j<i;j++) list[j].f.apply(list[j].c, args) 
+    };
 }
+module.exports = Events
