@@ -17,7 +17,7 @@ function Events(target){
     target.off = function(type, func){
       list = events[type] || []
       i = list.length = func ? list.length : 0
-      while(~--i<0) func == list[i].f && list.splice(i,1)
+      while(i-->0) func == list[i].f && list.splice(i,1)
     }
     /** 
      * Emit: send event, callbacks will be triggered
