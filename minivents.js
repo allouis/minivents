@@ -27,4 +27,4 @@ function Events(target){
     };
 }
 var u, module, cjs = module != u;
-(!cjs ? window : module)[(cjs ? 'exports' : 'Events')] = Events;
+(cjs ? module : window)[(cjs ? 'exports' : 'Events')] = Events;
