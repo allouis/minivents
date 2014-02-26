@@ -1,6 +1,3 @@
-/**
- *  Events
- */
 function Events(target){
   var events = {}, i, list, args, A = Array;
   target = target || this
