@@ -26,4 +26,5 @@ function Events(target){
       for(j=0;j<i;j++) list[j].f.apply(list[j].c, args) 
     };
 }
-module.exports = Events
+var u, module, cjs = module != u;
+(!cjs ? window : module)[(cjs ? 'exports' : 'Events')] = Events;
