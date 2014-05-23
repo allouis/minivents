@@ -20,6 +20,11 @@
   "author": {
     "name": "Fabien O'Carroll - allouis"
   },
+  "devDependencies": {
+    "gulp": "~3.6.2",
+    "gulp-uglify": "~0.3.0",
+    "gulp-rename": "~1.2.0"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/allouis/minivents/issues"
