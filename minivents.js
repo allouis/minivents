@@ -1,5 +1,5 @@
 function Events(target){
-  var events = {}, i, A = Array;
+  var events = {};
   target = target || this
     /**
      *  On: listen to events
@@ -20,7 +20,7 @@ function Events(target){
      * Emit: send event, callbacks will be triggered
      */
     target.emit = function(){
-      var args = A.apply([], arguments),
+      var args = Array.apply([], arguments),
       list = events[args.shift()] || [], 
       i = list.length, j
       for(j=0;j<i;j++) list[j].f.apply(list[j].c, args)
