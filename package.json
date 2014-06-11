@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/objectliteral/minivents.git"
+    "url": "git://github.com/allouis/minivents.git"
   },
   "keywords": [
     "events",
@@ -29,5 +29,5 @@
   "bugs": {
     "url": "https://github.com/allouis/minivents/issues"
   },
-  "readmeFilename": "README.md",
+  "readmeFilename": "README.md"
 }
