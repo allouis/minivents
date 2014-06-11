@@ -3,24 +3,28 @@
   "version": "1.1.3",
   "description": "Tiny eventing for javascript",
   "main": "minivents.js",
-  "directories": {
-    "test": "tests"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "gulp test",
     "build": "gulp"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/allouis/minivents.git"
+    "url": "git://github.com/objectliteral/minivents.git"
   },
   "keywords": [
     "events",
     "minivents"
   ],
-  "author": {
-    "name": "Fabien O'Carroll - allouis"
-  },
+  "contributors": [
+    {
+      "name": "Fabien O'Carroll",
+      "email": "fabien@allou.is"
+    },
+    {
+      "name": "Peter Steinberg",
+      "email": "petersteinberg@outlook.com"
+    }
+  ],
   "devDependencies": {
     "assert": "^1.1.1",
     "gulp": "~3.6.2",
@@ -32,8 +36,5 @@
   "bugs": {
     "url": "https://github.com/objectliteral/minivents/issues"
   },
-  "readme": "minivents\n=========\n\nhttp://allouis.github.io/minivents/\n\nAPI\n===\n\n`on` : Listen to event. Params { type:`String`, callback:`Function` | context:`Object` }\n    \n`off` : Stop listening to event. Params { type:`String` | callback:`Function` } \n    \n`emit`: Emit event. Params { type:`String` | data:`Object` } \n\n`trigger` is no longer supported!!\n\n`:%s/myobj.trigger(/myobj.emit(/` should do the trick in VIM\n    \nExample\n=======\n\n    var sandbox = new Events\n    \n    sandbox.on(\"event\", function(){\n        // do stuff\n    })\n\n    sandbox.emit(\"event\") //does stuff\n\n    sandbox.off(\"event\")\n\n    sandbox.emit(\"event\") //does not do stuff\n    \nMixin Example\n=======\n\n    var sandbox = {\n        otherStuff: true\n    }\n    \n    Events(sandbox)\n    \n    sandbox.on(\"event\", function(){\n        // do stuff\n    })\n\n    sandbox.emit(\"event\") //does stuff\n\n    sandbox.off(\"event\")\n\n    sandbox.emit(\"event\") //does not do stuff\n    \n",
-  "readmeFilename": "README.md",
-  "_id": "minivents@1.0.1",
-  "_from": "minivents@"
+  "readmeFilename": "README.md"
 }
