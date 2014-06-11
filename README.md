@@ -1,52 +1,41 @@
-minivents
-=========
+# minivents
 
-http://allouis.github.io/minivents/
+Minivents allows you to create message busses, send messages over those busses and subscribe to messages.
 
-API
-===
+## API
 
-`on` : Listen to event. Params { type:`String`, callback:`Function` | context:`Object` }
+`Events` : Create a new message bus. This bus provides the following methods.
+
+`on` : With this method you can register callbacks to be executed when a certain event is triggered. Params: `String type`, `Function callback`, `Object context`
     
-`off` : Stop listening to event. Params { type:`String` | callback:`Function` } 
+`off` : Removes an event listener. A reference to the function to be removed is required. Params: `String type`, `Function callback`
     
-`emit`: Emit event. Params { type:`String` | data:`Object` } 
-
-`trigger` is no longer supported!!
-
-`:%s/myobj.trigger(/myobj.emit(/` should do the trick in VIM
+`emit`: Calling this method triggers the specified event and will result in all registered callbacks being executed. Params: `String type`, `Object data` 
     
-Example
-=======
+## Example
 
-    var sandbox = new Events();
+    var bus = new Events();
     
-    sandbox.on("event", function(){
-        // do stuff
+    bus.on('ping', function(){
+        console.log('pong');
     });
 
-    sandbox.emit("event"); //does stuff
+    bus.emit('ping'); // 'pong'
 
-    sandbox.off("event");
+    bus.off('ping');
 
-    sandbox.emit("event"); //does not do stuff
+    bus.emit('event'); // [nothing happens]
     
-Mixin Example
-=======
+You can also create mixins of your objects to make a message bus out of any object.
 
-    var sandbox = {
-        otherStuff: true
+    var obj = {
+        foo: 'bar'
     };
     
-    Events(sandbox);
+    Events(obj);
     
-    sandbox.on("event", function(){
-        // do stuff
+    obj.on('ping', function(){
+        console.log('pong');
     });
 
-    sandbox.emit("event"); //does stuff
-
-    sandbox.off("event");
-
-    sandbox.emit("event"); //does not do stuff
-    
+    obj.emit('ping'); // 'pong'    
