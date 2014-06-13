@@ -1,81 +1,218 @@
-/**
- * Calling the `Events` function creates a new message bus over which messages can be sent.
- * The function adds methods to an object that allow for listening to and triggering events.
- */
-
-var Events = function Events (target) {
+var Events = (function () {
 
     'use strict';
 
-    /**
-     * The `events` variable saves the names of registered events and associates those names with arrays of callback functions to be called, when the event is triggered.
-     */
-    var events = {};
+    var busses = { },
 
-    target = target || this;
-
-    /**
-     * With this method you can register callbacks to be executed when a certain event is triggered.
-     * 
-     * @param {String} The name of the event is specified by a string. It doesn't matter, whether this event name already exists or not.
-     * @param {Function} The function to be called, when the event is triggered.
-     * @param {Object} Optionally, you can provide a context for the callback function.
-     */
-    target.on = function on (type, func, ctx) {
-
-        if (events[type] === undefined) {
-            events[type] = [];
-        }
-
-        events[type].push({
-            f : func,
-            c : ctx
-        });
-
-    };
-
-    /**
-     * This method allows it to remove event listeners. A reference to the function to be removed is required.
-     *
-     * @param {String} The name of the event to which the callback belongs.
-     * @param {Function} The callback function to be removed.
-     */
-    target.off = function off (type, func) {
-
-        var list = events[type] || [],
-            i = (func === undefined) ? 0 : list.length - 1;
-
-        for (; i >= 0; i = i - 1) {
-            if (func === (list[i] && list[i].f)) {
-                list.splice(i, 1);
+        isPublic = function (bus) {
+            var b;
+            for (b in busses) {
+                if (busses[b] === bus) {
+                    return true;
+                }
             }
-        }
+            return false;
+        },
 
-    };
-    
-    /** 
-     * Calling this method triggers the specified event and will result in all registered callbacks being executed. There should be no reliance on the order in which the callbacks are being invoked.
-     *
-     * @param {String} The name of the event to be triggered. Any additional arguments will be passed to the callback function.
+    /**
+     * Calling the `Events` function creates a new message bus over which messages can be sent.
+     * The function adds methods to an object that allow for listening to and triggering events.
+     * You can pass in an object to transform it into a message bus or a string to create a public named bus.
      */
-    target.emit = function emit (type) {
+        f = function Events (target) {
 
-        var args = [].slice.apply(arguments),
-            list = events[type] || [],
+        var events,
+            addEvent = function (name, override) {
+                if (events[name] === undefined || override) {
+                    events[name] = {
+                        callbacks : [],
+                        silenced : false,
+                        locked : false
+                    };
+                }
+                return events[name];
+            },
+            locked = false,
+            silenced = false;
+
+        /**
+         * The `events` variable saves the names of registered events and associates those names with arrays of callback functions to be called, when the event is triggered.
+         */
+        events = {};
+
+        if (typeof target === 'string') {
+            busses[target] = {};
+            target = busses[target]
+        } else if (typeof target === 'object') {
+            target = target;
+        } else {
+            target = this || {};
+        }
+        
+        /**
+         * With this method you can register callbacks to be executed when a certain event is triggered.
+         * 
+         * @param {String} The name of the event is specified by a string. It doesn't matter, whether this event name already exists or not.
+         * @param {Function} The function to be called, when the event is triggered.
+         * @param {Object} Optionally, you can provide a context for the callback function.
+         */
+        target.on = function on (type, func, ctx) {
+
+            if (locked || (events[type] && events[type].locked)) {
+                return;
+            }
+
+            addEvent(type).callbacks.push({
+                f : func,
+                context : ctx,
+                silenced : false,
+                // locked : false
+            });
+
+        };
+
+        /**
+         * This method allows it to remove event listeners. A reference to the function to be removed is required.
+         *
+         * @param {String} The name of the event to which the callback belongs.
+         * @param {Function} The callback function to be removed.
+         */
+        target.off = function off (type, func) {
+
+            var list = (events[type] && events[type].callbacks) || [],
+                i = (func === undefined) ? 0 : list.length - 1;
+
+            for (; i >= 0; i = i - 1) {
+                if (func === (list[i] && list[i].f)) {
+                    list.splice(i, 1);
+                }
+            }
+
+        };
+        
+        /** 
+         * Calling this method triggers the specified event and will result in all registered callbacks being executed. There should be no reliance on the order in which the callbacks are being invoked.
+         *
+         * @param {String} The name of the event to be triggered. Any additional arguments will be passed to the callback function.
+         */
+        target.emit = function emit (type) {
+
+            var args,
+                list,
+                len,
+                j;
+
+            if (silenced || (events[type] && events[type].silenced)) {
+                return;
+            }
+
+            args = [].slice.apply(arguments),
+            list = (events[type] && events[type].callbacks) || [],
             len = list.length,
             j = 0;
 
-        args.shift();
+            args.shift();
 
-        for (; j < len; j += 1) {
-            list[j].f.apply(list[j].c, args);
-        }
+            for (; j < len; j += 1) {
+                if (!list[j].silenced) {
+                   list[j].f.apply(list[j].context, args);
+                }
+            }
+
+        };
+
+        /**
+         * The `silence` method prevents any new messages from being sent over the message bus.
+         */
+        target.silence = function silence (type, func) { 
+            if (!isPublic(target)) {
+                if (type === undefined) {
+                    silenced = true;
+                } else {
+                    if (func === undefined) {
+                        addEvent(type).silenced = true;
+                    } else {
+                        if (events[type] !== undefined) {
+                            for (var i = 0; i < events[type].callbacks.length; i = i + 1) {
+                                if (events[type].callbacks[i].f === func) {
+                                    events[type].callbacks[i].silenced = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        /**
+         * With this method you can enable message sending after it was disable using `silence`.
+         */
+        target.unsilence = function unsilence (type, func) {
+            if (!isPublic(target)) {
+                if (type === undefined) {
+                    silenced = false;
+                } else {
+                    if (func === undefined) {
+                        addEvent(type).silenced = false;
+                    } else {
+                        if (events[type] !== undefined) {
+                            for (var i = 0; i < events[type].callbacks.length; i = i + 1) {
+                                if (events[type].callbacks[i].f === func) {
+                                    events[type].callbacks[i].silenced = false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        target.lock = function lock (type) {
+            if (!isPublic(target)) {
+                if (type === undefined) {
+                    locked = true;
+                } else {
+                    addEvent(type).locked = true;
+                }
+            }
+        };
+
+        target.unlock = function unlock (type) {
+            if (!isPublic(target)) {
+                if (type === undefined) {
+                    locked = false;
+                } else {
+                    addEvent(type).locked = false;
+                }
+            }
+        };
+
+        /**
+         * This lets you remove all event listeners from the message bus or from a specified event type. (Also sets `silenced` and `locked` to `false`).
+         */
+        target.reset =  function reset (type) {
+            if (!isPublic(target)) {
+                if (events !== null) {
+                    if (type === undefined) {
+                       events = { };
+                    } else {
+                        addEvent(type, true);
+                    }
+                }
+            }
+        };
+
+        return target;
 
     };
 
-    return target;
+    f.get = function (name) {
+        return busses[name];
+    };
 
-};
+    return f;
+
+}());
 
 // see UMD pattern at https://github.com/umdjs/umd/blob/master/returnExports.js
 (function (root, factory) {

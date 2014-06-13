@@ -9,15 +9,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/allouis/minivents.git"
+    "url": "git://github.com/objectliteral/minivents.git"
   },
   "keywords": [
     "events",
     "minivents"
   ],
-  "author": {
-      "name": "Fabien O'Carroll - allouis"
-  },
+  "contributors": [
+    {
+      "name": "Fabien O'Carroll",
+      "email": "fabien@allou.is"
+    },
+    {
+      "name": "Peter Steinberg",
+      "email": "petersteinberg@outlook.com"
+    }
+  ],
   "devDependencies": {
     "assert": "^1.1.1",
     "gulp": "~3.6.2",
@@ -27,7 +34,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/allouis/minivents/issues"
+    "url": "https://github.com/objectliteral/minivents/issues"
   },
   "readmeFilename": "README.md"
 }
