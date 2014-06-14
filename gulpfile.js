@@ -1,16 +1,27 @@
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
+    jshint = require('gulp-jshint'),
     rename = require('gulp-rename'),
     mocha = require('gulp-mocha');
+
+gulp.task('hint', function () {
+    gulp.src('./minivents.js')
+      .pipe(jshint())
+      .pipe(jshint.reporter('default'));
+});
 
 gulp.task('test', [], function () {
   gulp.src('./test.js')
       .pipe(mocha());
 });
 
-gulp.task('default', [ 'test' ], function () {
-  gulp.src('./minivents.js')
+gulp.task('build', [], function () {
+    gulp.src('./minivents.js')
       .pipe(uglify())
       .pipe(rename('minivents.min.js'))
       .pipe(gulp.dest('./'));
+  });
+
+gulp.task('default', [ 'hint', 'test', 'build' ], function () {
+  
 });

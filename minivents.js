@@ -42,7 +42,7 @@ var Events = (function () {
 
             if (typeof target === 'string') {
                 busses[target] = {};
-                target = busses[target]
+                target = busses[target];
             } else if (typeof target === 'object') {
                 target = target;
             } else {
@@ -106,9 +106,9 @@ var Events = (function () {
                     return;
                 }
 
-                args = [].slice.apply(arguments),
-                list = (events[type] && events[type].callbacks) || [],
-                len = list.length,
+                args = [].slice.apply(arguments);
+                list = (events[type] && events[type].callbacks) || [];
+                len = list.length;
                 j = 0;
 
                 args.shift();
@@ -128,23 +128,34 @@ var Events = (function () {
              * @param {Function} Optional: The function that shall not be executed when the event is triggered in the future.
              */
             target.silence = function silence (type, func) { 
-                if (!isPublic(target)) {
-                    if (type === undefined) {
-                        silenced = true;
-                    } else {
-                        if (func === undefined) {
-                            addEvent(type).silenced = true;
-                        } else {
-                            if (events[type] !== undefined) {
-                                for (var i = 0; i < events[type].callbacks.length; i = i + 1) {
-                                    if (events[type].callbacks[i].f === func) {
-                                        events[type].callbacks[i].silenced = true;
-                                    }
-                                }
-                            }
+                
+                var e, i, l;
+
+                if (isPublic(target)) {
+                    return false;
+                }
+
+                if (type === undefined) {
+                    silenced = true;
+                    return;
+                }
+                
+                if (func === undefined) {
+                    addEvent(type).silenced = true;
+                    return;
+                }
+
+                e = events[type];
+
+                if (e !== undefined) {
+                    l = e.callbacks.length;
+                    for (i = 0; i < l; i = i + 1) {
+                        if (e.callbacks[i].f === func) {
+                            e.callbacks[i].silenced = true;
                         }
                     }
                 }
+
             };
 
             /**
@@ -154,23 +165,33 @@ var Events = (function () {
              * @param {Function} Optional: The function that shall be executed again, after being silenced.
              */
             target.unsilence = function unsilence (type, func) {
-                if (!isPublic(target)) {
-                    if (type === undefined) {
-                        silenced = false;
-                    } else {
-                        if (func === undefined) {
-                            addEvent(type).silenced = false;
-                        } else {
-                            if (events[type] !== undefined) {
-                                for (var i = 0; i < events[type].callbacks.length; i = i + 1) {
-                                    if (events[type].callbacks[i].f === func) {
-                                        events[type].callbacks[i].silenced = false;
-                                    }
-                                }
-                            }
+
+                var e, i, l;
+
+                if (isPublic(target)) {
+                    return false;
+                }
+
+                if (type === undefined) {
+                    silenced = false;
+                }
+
+                if (func === undefined) {
+                    addEvent(type).silenced = false;
+                }
+                
+                e = events[type];
+
+                if (e !== undefined) {
+                    l = e.callbacks.length;
+                    for (i = 0; i < l; i = i + 1) {
+                        if (e.callbacks[i].f === func) {
+                            e.callbacks[i].silenced = false;
                         }
                     }
                 }
+                
+
             };
 
             /**
