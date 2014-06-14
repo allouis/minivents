@@ -1,6 +1,6 @@
 {
   "name": "minivents",
-  "version": "1.1.3",
+  "version": "1.2.1",
   "description": "Tiny eventing for javascript",
   "main": "minivents.js",
   "scripts": {
@@ -28,6 +28,7 @@
   "devDependencies": {
     "assert": "^1.1.1",
     "gulp": "~3.6.2",
+    "gulp-jshint": "^1.6.2",
     "gulp-mocha": "^0.4.1",
     "gulp-rename": "~1.2.0",
     "gulp-uglify": "~0.3.0"
