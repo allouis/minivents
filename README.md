@@ -8,7 +8,7 @@ The goal of this library is to provide a Pub-Sub-System that is as easy to use a
 
 This library understands the concept of so called *message busses* or *event busses*. A bus is a communication device that has events associated with it. When a message is sent over a message bus, all callback functions registered for that specific message are being called.
 
-The following documentation makes use of a certain terminilogy which probably should be explained briefly.
+The following documentation makes use of a certain terminology which should be explained briefly.
 
 *Events* and *messages* are used synonymously and describe quite virtual things. There is no event object in this library and events are only represented by their *name* or *type* (which are also different terms for the same thing).
 
@@ -18,7 +18,7 @@ The following documentation makes use of a certain terminilogy which probably sh
 
 There's not really anything to install. If you want to use minivents in your project, include `minivents.js` or `minivents.min.js` and use it like described below. 
 
-If you want to extend minivents to your needs you might want to run tests. In order to do this, you can clone this repository and run `npm install` and `gulp test`. Tests are written with assert and run with mocha (gulp-mocha).
+If you want to extend minivents to your needs you might want to run tests. In order to do this, you can clone this repository and run `npm install` and `gulp test`. Tests are written with assert and run with [mocha](http://visionmedia.github.io/mocha/) ([gulp-mocha](https://github.com/sindresorhus/gulp-mocha)).
 
 ## How to use / API
 
@@ -181,6 +181,6 @@ Why? Well, unnamed busses have to be passed around in order to connect seperate 
 
 Because named busses are public, you don't want to rely on the good intentions of any module you load in your application. That is why public busses (and also single events on public busses) can not be silenced or locked.
 
-## Compatability
+## Compatibility
 
-There have been no tests so far, determining this libraries compatability with JavaScript execution environments.
+So far there have been no tests for determining this library's compatibility with JavaScript execution environments.
