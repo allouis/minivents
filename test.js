@@ -77,6 +77,28 @@ describe('`on` function', function () {
     }
   });
 
+  
+  it('should behave as if no arguments were passed if called with an unexpected type', 
+    function () {
+
+      var bus;
+
+      try {
+        bus = Events(42);
+        assert.equal(true, typeof bus.emit === 'function');
+      } catch (e) {
+        assert.fail(undefined, e, e.toString());
+      }
+
+      try {
+        bus = Events(false);
+        assert.equal(true, typeof bus.emit === 'function');
+      } catch (e) {
+        assert.fail(undefined, e, e.toString());
+      }
+
+  });
+
 });
 
 describe('`off` function', function () {
@@ -144,9 +166,9 @@ describe('`emit` function',  function () {
 
     it('should inject a callback\'s context',  function () {
         var bus = Events({}),
-            ctx = { }
+            ctx = { },
             f = function () { o = this; },
-            o = undefined;
+            o;
         bus.on('ping', f, ctx);
         bus.emit('ping');
         assert.equal(ctx, o);
@@ -166,7 +188,7 @@ describe('`reset` function',  function () {
 
   it('should remove all callbacks from a specified event if called with the event type', function () {
     var bus = Events({}),
-      res = undefined;
+      res;
     bus.on('ping', function () {
       assert.fail(undefined, undefined, 'This function must not be executed.');
     });
@@ -181,7 +203,7 @@ describe('`reset` function',  function () {
 
   it('should not affect public busses', function () {
     var bus = Events('test'),
-      res = undefined;
+      res;
     bus.on('ping', function () {
       res = true;
     });
@@ -208,7 +230,7 @@ describe('`silence` function', function () {
 
   it('should disable triggering events of a certain type if called with the event type', function () {
     var bus = Events({}),
-      res = undefined;
+      res;
     bus.on('ping', function () {
       assert.fail(undefined, undefined, 'This function must not be executed.');
     });
@@ -226,7 +248,7 @@ describe('`silence` function', function () {
       f = function () {
         assert.fail(undefined, undefined, 'This function must not be executed.');
       },
-      res = undefined;
+      res;
     bus.on('ping', f);
     bus.on('ping', function () {
       res = true;
@@ -238,7 +260,7 @@ describe('`silence` function', function () {
 
   it('should not affect public busses if called with no arguments', function () {
     var bus = Events('test'),
-      res = undefined;
+      res;
     bus.on('ping', function () {
       res = true;
     });
@@ -249,7 +271,7 @@ describe('`silence` function', function () {
 
   it('should not affect public busses if called with an event type', function () {
     var bus = Events('test'),
-      res = undefined;
+      res;
     bus.on('ping', function () {
       res = true;
     });
@@ -262,7 +284,7 @@ describe('`silence` function', function () {
 describe('`unsilence` function', function () {
   it('should re-enable triggering messages on a bus if called with no arguments', function () {
     var bus = Events({}),
-      res = undefined;
+      res;
     bus.on('ping', function () {
       res = true;
     });
@@ -274,7 +296,7 @@ describe('`unsilence` function', function () {
 
   it('should re-enable triggering messages of a certain type if called with the event type', function () {
     var bus = Events({}),
-      res = undefined;
+      res;
     bus.on('ping', function () {
       res = true;
     });
@@ -296,7 +318,7 @@ describe('`unsilence` function', function () {
       f1 = function () {
         assert.fail(undefined, undefined, 'This function must not be executed.');
       },
-      res = undefined;
+      res;
     bus.on('ping', f0);
     bus.on('ping', f1);
     bus.silence('ping', f0);
@@ -311,7 +333,7 @@ describe('`lock` function', function () {
 
   it('should prevent new callbacks from being attach to any events if called with no argument', function () {
     var bus = Events({}),
-      res = undefined;
+      res;
     bus.on('ping', function () { // this function should still be executed
       res = true;
     });
@@ -329,7 +351,7 @@ describe('`lock` function', function () {
 
   it('should prevent new callbacks from being attach to any events if called with an event name', function () {
     var bus = Events({}),
-      res = undefined;
+      res;
     bus.on('ping', function () { // this function should still be executed
       res = true;
     });
@@ -349,7 +371,7 @@ describe('`lock` function', function () {
 
   it('should not affect public busses if called with no argument', function () {
     var bus = Events('test'),
-      res = undefined;
+      res;
     bus.lock();
     bus.on('ping', function () {
       res = true;
@@ -360,7 +382,7 @@ describe('`lock` function', function () {
 
   it('should not affect public busses if called with an event name', function () {
     var bus = Events('test'),
-      res = undefined;
+      res;
     bus.on('ping', function () {});
     bus.lock('ping');
     bus.on('ping', function () {
@@ -376,7 +398,7 @@ describe('`unlock` function', function () {
 
   it('should allow new callbacks to be attached to any events if called with no argument', function () {
     var bus = Events({}),
-      res = undefined;
+      res;
     bus.lock();
     bus.unlock();
     bus.on('ping', function () {
@@ -392,7 +414,7 @@ describe('`unlock` function', function () {
 
   it('should allow new callbacks to be attached to any events if called with an event name', function () {
     var bus = Events({}),
-      res = undefined;
+      res;
     bus.lock('ping');
     bus.lock('pong');
     bus.unlock('ping');
