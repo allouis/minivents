@@ -12,6 +12,7 @@ function Events(target){
      *  Off: stop listening to event / specific callback
      */
     target.off = function(type, func){
+      type || events = {}
       var list = events[type] || [],
       i = list.length = func ? list.length : 0
       while(i-->0) func == list[i].f && list.splice(i,1)
