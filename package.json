@@ -3,11 +3,8 @@
   "version": "1.1.4",
   "description": "Tiny eventing for javascript",
   "main": "minivents.js",
-  "directories": {
-    "test": "tests"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+   "test": "gulp test",
     "build": "gulp"
   },
   "repository": {
@@ -22,7 +19,10 @@
     "name": "Fabien O'Carroll - allouis"
   },
   "devDependencies": {
+    "assert": "^1.1.1",
     "gulp": "~3.6.2",
+    "gulp-jshint": "^1.6.2",
+    "gulp-mocha": "^0.4.1",
     "gulp-uglify": "~0.3.0",
     "gulp-rename": "~1.2.0"
   },
