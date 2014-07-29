@@ -1,10 +1,10 @@
 {
   "name": "minivents",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Tiny eventing for javascript",
   "main": "minivents.js",
   "scripts": {
-   "test": "gulp test",
+    "test": "gulp test",
     "build": "gulp"
   },
   "repository": {
