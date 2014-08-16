@@ -22,9 +22,8 @@ function Events(target){
      */
     target.emit = function(){
       var args = Array.apply([], arguments),
-      list = events[args.shift()] || [], 
-      i = list.length, j
-      for(j=0;j<i;j++) list[j].f.apply(list[j].c, args)
+      list = events[args.shift()] || [], i, j
+      for(i=0;j=list[i];i++) j.f.apply(j.c, args)
     };
 }
 var u, module, cjs = module != u;
