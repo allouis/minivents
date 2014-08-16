@@ -5,7 +5,7 @@ function Events(target){
      *  On: listen to events
      */
     target.on = function(type, func, ctx){
-      events[type] || (events[type] = [])
+      events[type] = events[type] || []
       events[type].push({f:func, c:ctx})
     }
     /**
