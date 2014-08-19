@@ -1,5 +1,4 @@
-var u, module, m = module;
-(m ? module : window)[(m ? 'exports' : 'Events')] = function (target){
+(this.module||window)[(this.module ? 'exports' : 'Events')] = function (target){
   var events = {};
   target = target || this
     /**
