@@ -102,9 +102,15 @@ describe('`off` function', function () {
 describe('`emit` function',  function () {
     it('should result in registered callbacks being invoked',  function () {
         var bus = new Events(),
-            f = function () { assert(true); };
-        bus.on('ping', f);
+            called = 0,
+            f1 = function () { called++ },
+            f2 = function () { called++ },
+            f3 = function () { called++ };
+        bus.on('ping', f1);
+        bus.on('ping', f2);
+        bus.on('ping', f3);
         bus.emit('ping');
+        assert(called, 3);
     });
 
     it('should pass all of its additional arguments to the callback',  function () {

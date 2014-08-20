@@ -1,11 +1,12 @@
-function Events(target){
+var u, module, m = module;
+(m ? module : window)[(m ? 'exports' : 'Events')] = function (target){
   var events = {};
   target = target || this
     /**
      *  On: listen to events
      */
     target.on = function(type, func, ctx){
-      events[type] || (events[type] = [])
+      events[type] = events[type] || []
       events[type].push({f:func, c:ctx})
     }
     /**
@@ -22,10 +23,7 @@ function Events(target){
      */
     target.emit = function(){
       var args = Array.apply([], arguments),
-      list = events[args.shift()] || [], 
-      i = list.length, j
-      for(j=0;j<i;j++) list[j].f.apply(list[j].c, args)
+      list = events[args.shift()] || [], i=0, j
+      for(;j=list[i++];) j.f.apply(j.c, args)
     };
 }
-var u, module, cjs = module != u;
-(cjs ? module : window)[(cjs ? 'exports' : 'Events')] = Events;
