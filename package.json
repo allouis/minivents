@@ -13,7 +13,11 @@
   },
   "keywords": [
     "events",
-    "minivents"
+    "minivents",
+    "tiny",
+    "event",
+    "emitter",
+    "eventemitter"
   ],
   "author": {
     "name": "Fabien O'Carroll - allouis"
