@@ -1,4 +1,5 @@
-function Events(target){
+var u, module, m = module;
+(m ? module : window)[(m ? 'exports' : 'Events')] = function (target){
   var events = {};
   target = target || this
     /**
@@ -26,5 +27,3 @@ function Events(target){
       for(;j=list[i++];) j.f.apply(j.c, args)
     };
 }
-var u, module, c = module != u;
-(c ? module : window)[(c ? 'exports' : 'Events')] = Events;
