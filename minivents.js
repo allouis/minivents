@@ -5,8 +5,7 @@
      *  On: listen to events
      */
     target.on = function(type, func, ctx){
-      events[type] = events[type] || []
-      events[type].push({f:func, c:ctx})
+      (events[type] = events[type] || []).push({f:func, c:ctx})
     }
     /**
      *  Off: stop listening to event / specific callback
