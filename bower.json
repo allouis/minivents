@@ -6,7 +6,7 @@
   "authors": [
     "Fabien O'Carroll - allouis"
   ],
-  "description": "Tiny eventing for javascrip",
+  "description": "Tiny eventing for javascript",
   "moduleType": [
     "amd",
     "globals"
