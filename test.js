@@ -110,7 +110,7 @@ describe('`emit` function',  function () {
         bus.on('ping', f2);
         bus.on('ping', f3);
         bus.emit('ping');
-        assert(called, 3);
+        assert.equal(called, 3);
     });
 
     it('should pass all of its additional arguments to the callback',  function () {
