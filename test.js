@@ -1,35 +1,55 @@
 var assert = require('assert'),
     Events = require('./minivents.js');
 
-describe('Events Constructor', function () {
+describe('Events "new" Constructor', function () {
+
   it('should return an object containing the methods used by minivents if called with new', function () {
       var bus = new Events();
       assert.equal('object', typeof bus);
   });
 
-  it('should return an object containing the methods used by minivents if called with an empty object', function () {
-      var bus = new Events();
-      assert.equal('object', typeof bus);
+  it('should contain an `emit` function', function () {
+    var bus = new Events();
+    assert.equal('function', typeof bus.emit);
+  });
+
+  it('should contain an `off` function', function () {
+    var bus = new Events();
+    assert.equal('function', typeof bus.off);
+  });
+
+  it('should contain an `on` function', function () {
+    var bus = new Events();
+    assert.equal('function', typeof bus.on);
   });
 
 });
 
-describe('Event busses', function () {
+describe('Events "mixin" Constructor', function () {
 
-    it('should contain an `emit` function', function () {
-      var bus = new Events();
-      assert.equal('function', typeof bus.emit);
-    });
+  it('should return undefined if called with an empty object', function () {
+      var bus = {},
+          ret = Events(bus);
+      assert.equal(undefined, ret);
+  });
 
-    it('should contain an `off` function', function () {
-      var bus = new Events();
-      assert.equal('function', typeof bus.off);
-    });
+  it('should contain an `emit` function', function () {
+    var bus = {};
+    Events(bus);
+    assert.equal('function', typeof bus.emit);
+  });
 
-    it('should contain an `on` function', function () {
-      var bus = new Events();
-      assert.equal('function', typeof bus.on);
-    });
+  it('should contain an `off` function', function () {
+    var bus = {};
+    Events(bus);
+    assert.equal('function', typeof bus.off);
+  });
+
+  it('should contain an `on` function', function () {
+    var bus = {};
+    Events(bus);
+    assert.equal('function', typeof bus.on);
+  });
 
 });
 
