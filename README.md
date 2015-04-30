@@ -1,5 +1,5 @@
-minivents
-=========
+minivents [![Build Status](https://travis-ci.org/allouis/minivents.svg?branch=master)](https://travis-ci.org/allouis/minivents)
+===============================================================================================================================
 
 http://allouis.github.io/minivents/
 
