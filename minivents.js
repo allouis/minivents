@@ -14,7 +14,7 @@
       type || (events = {})
       var list = events[type] || empty,
       i = list.length = func ? list.length : 0
-      while(i-->0) func == list[i].f && list.splice(i,1)
+      while(i--) func == list[i].f && list.splice(i,1)
     }
     /** 
      * Emit: send event, callbacks will be triggered
@@ -22,6 +22,6 @@
     target.emit = function(type){
       var args = empty.slice.call(arguments, 1),
       list = events[type] || empty, i=0, j
-      for(;j=list[i++];) j.f.apply(j.c, args)
+      while(j=list[i++]) j.f.apply(j.c, args)
     };
 }
