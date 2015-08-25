@@ -9,10 +9,6 @@ http://allouis.github.io/minivents/
 `off` : Stop listening to event. Params { type:`String` | callback:`Function` } 
     
 `emit`: Emit event. Params { type:`String` | data:`Object` } 
-
-`trigger` is no longer supported!!
-
-`:%s/myobj.trigger(/myobj.emit(/` should do the trick in VIM
     
 # Constructor Example
 ```javascript
