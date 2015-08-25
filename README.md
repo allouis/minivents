@@ -1,10 +1,8 @@
-minivents [![Build Status](https://travis-ci.org/allouis/minivents.svg?branch=master)](https://travis-ci.org/allouis/minivents)
-===============================================================================================================================
+# minivents [![Build Status](https://travis-ci.org/allouis/minivents.svg?branch=master)](https://travis-ci.org/allouis/minivents)
 
 http://allouis.github.io/minivents/
 
-API
-===
+# API
 
 `on` : Listen to event. Params { type:`String`, callback:`Function` | context:`Object` }
     
@@ -16,37 +14,35 @@ API
 
 `:%s/myobj.trigger(/myobj.emit(/` should do the trick in VIM
     
-Example
-=======
-
-    var sandbox = new Events();
+# Constructor Example
+```javascript
+var sandbox = new Events();
     
-    sandbox.on("event", function(){
-        // do stuff
-    });
+sandbox.on("event", function(){
+    // do stuff
+});
 
-    sandbox.emit("event"); //does stuff
+sandbox.emit("event"); //does stuff
 
-    sandbox.off("event");
+sandbox.off("event");
 
-    sandbox.emit("event"); //does not do stuff
-    
-Mixin Example
-=======
+sandbox.emit("event"); //does not do stuff
+```    
+# Mixin Example
+```javascript
+var sandbox = {
+    otherStuff: true
+};
 
-    var sandbox = {
-        otherStuff: true
-    };
-    
-    Events(sandbox);
-    
-    sandbox.on("event", function(){
-        // do stuff
-    });
+Events(sandbox);
 
-    sandbox.emit("event"); //does stuff
+sandbox.on("event", function(){
+    // do stuff
+});
 
-    sandbox.off("event");
+sandbox.emit("event"); //does stuff
 
-    sandbox.emit("event"); //does not do stuff
-    
+sandbox.off("event");
+
+sandbox.emit("event"); //does not do stuff
+```
