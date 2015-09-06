@@ -1,5 +1,5 @@
 var assert = require('assert'),
-    Events = require('./minivents.js');
+    Events = require('./dist/minivents.commonjs.js');
 
 describe('Events "new" Constructor', function () {
 
