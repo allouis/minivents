@@ -7,6 +7,7 @@
     "Fabien O'Carroll - allouis"
   ],
   "description": "Tiny eventing for javascript",
+  "main": ["dist/minivents.min.js"],
   "moduleType": [
     "amd",
     "globals"
