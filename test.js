@@ -125,17 +125,13 @@ describe('`emit` function',  function () {
             called = 0,
             f1 = function () { called++ },
             f2 = function () { called++ },
-            f3 = function () { called++ },
-            f4 = function () { bus.emit('cascade'); },
-            f5 = function () { called++ };
+            f3 = function () { called++ };
 
         bus.on('ping', f1);
         bus.on('ping', f2);
         bus.on('ping', f3);
-        bus.on('ping', f4);
-        bus.on('ping', f5);
         bus.emit('ping');
-        assert.equal(called, 4);
+        assert.equal(called, 3);
     });
 
     it('should pass all of its additional arguments to the callback',  function () {
@@ -154,6 +150,29 @@ describe('`emit` function',  function () {
             f = function () { assert.equal(ctx, this); };
         bus.on('ping', f, ctx);
         bus.emit('ping');
+    });
+
+    it('should result in registered callbacks being invoked with cascade',  function () {
+        var bus = new Events(),
+            called = 0,
+            cascade = false,
+            f1 = function () { called++ },
+            f2 = function () { called++ },
+            f3 = function () { called++ },
+            f4 = function () { bus.emit('cascade'); },
+            f5 = function () { called++ },
+            f6 = function () { cascade = true; };
+
+        bus.on('ping', f1);
+        bus.on('ping', f2);
+        bus.on('ping', f3);
+        bus.on('ping', f4);
+        bus.on('ping', f5);
+        bus.on('cascade', f6);
+        bus.emit('ping');
+
+        assert.equal(called, 4);
+        assert.equal(cascade, true);
     });
 
 });
