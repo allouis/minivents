@@ -1,5 +1,5 @@
 define([], function() { return function Events(target){
-  var events = {}, empty = [], list, j, i;
+  var events = {}, empty = [];
   target = target || this
   /**
    *  On: listen to events
@@ -12,15 +12,15 @@ define([], function() { return function Events(target){
    */
   target.off = function(type, func){
     type || (events = {})
-    list = events[type] || empty,
-    i = list.length = func ? list.length : 0
+    var list = events[type] || empty,
+        i = list.length = func ? list.length : 0;
     while(i--) func == list[i][0] && list.splice(i,1)
   }
   /** 
    * Emit: send event, callbacks will be triggered
    */
   target.emit = function(type){
-    list = events[type] || empty; i=0
+    var list = events[type] || empty, i=0, j;
     while(j=list[i++]) j[0].apply(j[1], empty.slice.call(arguments, 1))
   };
 }; });
