@@ -175,4 +175,24 @@ describe('`emit` function',  function () {
         assert.equal(cascade, true);
     });
 
+    it('should result in registered callbacks being invoked event if one callback remove himself',  function () {
+        var bus = new Events(),
+            called = 0,
+            cascade = false,
+            f1 = function () { called++ },
+            f2 = function () { called++ },
+            f3 = function () { called++ },
+            f4 = function () { bus.off('ping', f4); },
+            f5 = function () { called++ };
+
+        bus.on('ping', f1);
+        bus.on('ping', f2);
+        bus.on('ping', f3);
+        bus.on('ping', f4);
+        bus.on('ping', f5);
+        bus.emit('ping');
+
+        assert.equal(called, 4);
+    });
+
 });
