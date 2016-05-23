@@ -20,7 +20,7 @@ function Events(target){
    * Emit: send event, callbacks will be triggered
    */
   target.emit = function(type){
-    var list = events[type] || empty, i=0, j;
+    var e = events[type] || empty, list = e.length > 0 ? e.slice(0, e.length) : e, i=0, j;
     while(j=list[i++]) j[0].apply(j[1], empty.slice.call(arguments, 1))
   };
 };
