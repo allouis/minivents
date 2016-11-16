@@ -1,12 +1,11 @@
 {
   "name": "minivents",
-  "version": "2.0.1",
   "homepage": "https://github.com/allouis/minivents",
   "authors": [
     "Fabien O'Carroll - allouis"
   ],
   "description": "Tiny eventing for javascript",
-  "main": "dist/minivents.amd.min.js",
+  "main": "dist/minivents.amd.js",
   "moduleType": "amd",
   "keywords": [
     "events",
