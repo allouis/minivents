@@ -28,8 +28,8 @@ export class Events {
 }
 
 /**
- * Can
+ * Add support of events to object.
+ *
  * @param object
- * @constructor
  */
 export function Events<T>(object: T): T & Events;
