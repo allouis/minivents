@@ -6,6 +6,7 @@ define([], function() { return function Events(target){
    */
   target.on = function(type, func, ctx){
     (events[type] = events[type] || []).push([func, ctx])
+    return target
   }
   /**
    *  Off: stop listening to event / specific callback
@@ -15,6 +16,7 @@ define([], function() { return function Events(target){
     var list = events[type] || empty,
         i = list.length = func ? list.length : 0;
     while(i--) func == list[i][0] && list.splice(i,1)
+    return target
   }
   /** 
    * Emit: send event, callbacks will be triggered
@@ -22,5 +24,6 @@ define([], function() { return function Events(target){
   target.emit = function(type){
     var e = events[type] || empty, list = e.length > 0 ? e.slice(0, e.length) : e, i=0, j;
     while(j=list[i++]) j[0].apply(j[1], empty.slice.call(arguments, 1))
+    return target
   };
 }; });
