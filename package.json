@@ -1,6 +1,6 @@
 {
   "name": "minivents",
-  "version": "2.1.1",
+  "version": "2.1.0",
   "description": "Tiny eventing for javascript",
   "main": "dist/minivents.commonjs.js",
   "types": "./typings/minievents.d.ts",
