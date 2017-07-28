@@ -73,6 +73,10 @@ describe('`on` function', function () {
     }
   });
 
+  it('should return target', function () {
+    var bus = new Events();
+    assert.equal(bus.on('ping', function () { }), bus);
+  });
 });
 
 describe('`off` function', function () {
@@ -117,6 +121,12 @@ describe('`off` function', function () {
     bus.emit('ping');
   });
 
+  it('should return target', function () {
+    var bus = new Events(),
+      f = function () { };
+    bus.on('ping', f);
+    assert.equal(bus.off('ping'), bus);
+  });
 });
 
 describe('`emit` function',  function () {
@@ -195,4 +205,10 @@ describe('`emit` function',  function () {
         assert.equal(called, 4);
     });
 
+    it('should return target', function () {
+        var bus = new Events(),
+            f = function () { };
+        bus.on('ping', f);
+        assert.equal(bus.emit('ping'), bus);
+    });
 });

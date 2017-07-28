@@ -4,11 +4,11 @@ http://allouis.github.io/minivents/
 
 # API
 
-`on` : Listen to event. Params { type:`String`, callback:`Function` | context:`Object` }
+`on` : Listen to event. Params { type:`String`, callback:`Function` | context:`Object` }. Returns `target`.
     
-`off` : Stop listening to event. Params { type:`String` | callback:`Function` } 
+`off` : Stop listening to event. Params { type:`String` | callback:`Function` }. Returns `target`.
     
-`emit`: Emit event. Params { type:`String` | data:`Object` } 
+`emit`: Emit event. Params { type:`String` | data:`Object` }. Returns `target`.
     
 # Constructor Example
 ```javascript
