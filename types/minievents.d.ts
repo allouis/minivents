@@ -17,7 +17,7 @@ export class Events {
      * @param type
      * @param callback
      */
-    off(type: string = null, callback: Function = null)
+    off(type?: string, callback?: Function)
 
     /**
      * Send event. Callbacks will be triggered.
