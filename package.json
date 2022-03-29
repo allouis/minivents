@@ -3,7 +3,7 @@
   "version": "2.2.0",
   "description": "Tiny eventing for javascript",
   "main": "dist/minivents.commonjs.js",
-  "types": "./typings/minievents.d.ts",
+  "types": "./types/minievents.d.ts",
   "browser": "dist/minivents.commonjs.min.js",
   "scripts": {
     "test": "gulp test",
